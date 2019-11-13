@@ -1,0 +1,4 @@
+crtattiny816.o
+libattiny816.a
+libc.a
+libm.a
