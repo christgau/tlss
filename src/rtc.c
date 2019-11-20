@@ -37,18 +37,19 @@
 #include <rtc.h>
 #include <compiler.h>
 
+volatile rtc_time_t rtc_current_time;
+
 /**
  * \brief Initialize rtc interface
  * \return Initialization status.
  */
-int8_t RTC_0_init()
+void rtc_init()
 {
 
 	while (RTC.STATUS > 0) { /* Wait for all register to be synchronized */
 	}
 
 	// RTC.CMP = 0x0; /* Compare: 0x0 */
-
 	// RTC.CNT = 0x0; /* Counter: 0x0 */
 
 	RTC.CTRLA = RTC_PRESCALER_DIV1_gc   /* 1 */
@@ -58,7 +59,6 @@ int8_t RTC_0_init()
 	// RTC.PER = 0xffff; /* Period: 0xffff */
 
 	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc; /* 32KHz divided by 32 */
-
 	// RTC.DBGCTRL = 0 << RTC_DBGRUN_bp; /* Run in debug: disabled */
 
 	RTC.INTCTRL = 0 << RTC_CMP_bp    /* Compare Match Interrupt enable: disabled */
@@ -66,18 +66,16 @@ int8_t RTC_0_init()
 
 	// RTC.PITCTRLA = RTC_PERIOD_OFF_gc /* Off */
 	//		 | 0 << RTC_PITEN_bp; /* Enable: disabled */
-
 	// RTC.PITDBGCTRL = 0 << RTC_DBGRUN_bp; /* Run in debug: disabled */
-
 	RTC.PITINTCTRL = 1 << RTC_PI_bp; /* Periodic Interrupt: enabled */
 
-	return 0;
+	rtc_current_time = 0;
 }
 
 ISR(RTC_CNT_vect)
 {
-
 	/* Insert your RTC Overflow interrupt handling code */
+	rtc_current_time++;
 
 	/* Overflow interrupt flag has to be cleared manually */
 	RTC.INTFLAGS = RTC_OVF_bm;

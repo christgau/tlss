@@ -35,7 +35,12 @@
 extern "C" {
 #endif
 
-int8_t RTC_0_init();
+typedef uint32_t rtc_time_t;
+
+/* current real time clock measured in milliseconds after system startup */
+extern volatile rtc_time_t rtc_current_time;
+
+void rtc_init();
 
 #ifdef __cplusplus
 }

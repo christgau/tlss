@@ -298,7 +298,7 @@ void system_init()
 
 	CLKCTRL_init();
 
-	RTC_0_init();
+	rtc_init();
 
 	VREF_0_init();
 
