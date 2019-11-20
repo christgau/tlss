@@ -4,6 +4,7 @@ OBJS=\
 	src/ac.o \
 	src/bod.o \
 	src/clkctrl.o \
+	src/control.o \
 	src/cpuint.o \
 	src/driver_init.o \
 	src/protected_io.o \

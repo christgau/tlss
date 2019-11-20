@@ -58,11 +58,3 @@ int8_t CPUINT_init()
 
 	return 0;
 }
-
-ISR(PORTA_PORT_vect)
-{
-	/* Insert your PORTA interrupt handling code here */
-
-	/* Clear interrupt flags */
-	VPORTA_INTFLAGS = (1 << 1) | (1 << 2) | (1 << 3) | (1 << 6) | (1 << 7);
-}
