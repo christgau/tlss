@@ -11,6 +11,7 @@ OBJS=\
 	src/rtc.o \
 	src/slpctrl.o \
 	src/spi_basic.o \
+	src/tasks.o \
 	src/tca.o \
 	src/usart_basic.o \
 	src/vref.o \
