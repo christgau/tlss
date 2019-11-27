@@ -1,0 +1,22 @@
+# required hardware board interface
+	- 1 Reset
+	- 1 GND
+	- 1 Supply
+	- 3 inputs für READY (trigger another time for reset READY), START, FALSE START
+	- 1 or 2 SPI Chip Select (CS), using 1 requires an inverter
+	- 2 Traffic Light Control (red/green)
+	- 1 PWM for start sound (or just digital out for impulse)
+	- 2 Pins for RFM95 modules (GPIO zwecks Interrupts von dort)
+	- SPI Pins
+--- minimum: 10 pins
+	- X status LED ?!?
+	- UART: Rx, Tx?
+	- 1 ADC for power monitoring?
+	- 
+
+# Funk/RFM95
+
+- Frequenz: besser 868 als 433 wegen Verseuchung von 433 mit Consumergeräten
+- RFM_96_W ist vielleicht besser, weil "Long Range Tranceiver" 
+- Cabling: https://www.disk91.com/2019/technology/lora/hoperf-rfm95-and-arduino-a-low-cost-lorawan-solution/
+
