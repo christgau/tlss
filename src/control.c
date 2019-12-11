@@ -5,6 +5,7 @@
 
 #include "rtc.h"
 #include "tasks.h"
+#include "communication.h"
 
 #include "atmel_start_pins.h"
 
@@ -34,11 +35,15 @@ static uint8_t lane = 0;
 
 static struct task_handle_t *toggle_lights_task = NULL;
 
+static void control_packet_handler(uint8_t *packet, size_t packet_length);
+
 void control_init(void)
 {
 	lane = 0;
 	state = CT_NONE;
 	operation_mode = OM_MASTER; /* read from hardware configuration */
+
+	communication_init(&control_packet_handler);
 }
 
 static void toggle_lights_falsestart(task_argument_t arg)
@@ -133,4 +138,9 @@ ISR(PORTA_PORT_vect)
 
 	/* Clear interrupt flags */
 	VPORTA_INTFLAGS = (1 << 1) | (1 << 2) | (1 << 3) | (1 << 6) | (1 << 7);
+}
+
+static void control_packet_handler(uint8_t *packet, size_t packet_length)
+{
+	/* TODO: handle the packet */
 }
