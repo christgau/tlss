@@ -14,9 +14,25 @@
 	- 1 ADC for power monitoring?
 	- 
 
-# Funk/RFM95
+# Radio/RFM95 usage
 
-- Frequenz: besser 868 als 433 wegen Verseuchung von 433 mit Consumergeräten
-- RFM_96_W ist vielleicht besser, weil "Long Range Tranceiver" 
-- Cabling: https://www.disk91.com/2019/technology/lora/hoperf-rfm95-and-arduino-a-low-cost-lorawan-solution/
+- frequency range: 868 appears to be better than 433 since 433 is polluted by consumer devices
+- RFM_96_W might be good choice since it is a "Long Range Transceiver"
+- cabling example: https://www.disk91.com/2019/technology/lora/hoperf-rfm95-and-arduino-a-low-cost-lorawan-solution/
 
+- RFM usage
+	- implicit header mode appears to be useful -> we are using only a single AES block (16 Byte)
+
+	- Operation
+		* put modem in Stand by mode
+		* perform configuration
+			- setup interrupt for RXDone, mapping mode 00 appears to be the only one to be usale (p. 41)
+			- use packet mode with fixed length format
+			- use hardware address/packet filtering with addres byte (node ID)
+			- set the node ID
+			- address filtering = 10 (node id + broadcast)
+			- set LoRA operation mode
+		* switch mode: RXCONTINOUS
+		* when there is something to send -> switch to TX mode then back to RXCONT
+		* on RxDone interrupt check PayloadCrCError Flag
+			- if ok, read from FIFO (se p. 36 from manual)
